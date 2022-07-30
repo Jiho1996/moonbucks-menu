@@ -8,8 +8,10 @@ function App(){
     //메뉴 이름 받기.
     $("#espresso-menu-name")
     .addEventListener("keypress", (e) =>{
-        if (e.key == "Enter"){
+        // 
+        if (e.key === "Enter"){
             const coffeeName = $('#espresso-menu-name').value;
+            
             const coffeeMenuTemplate = (coffeeName) => {
                 return `
                     <li class="menu-list-item d-flex items-center py-2">
@@ -35,6 +37,7 @@ function App(){
                 );
             const menuCount = $("#espresso-menu-list").querySelectorAll("li").length
             $(".menu-count").innerText = `총 ${menuCount}개`
+            $('#espresso-menu-name').value = "";
         };
 
 
