@@ -56,5 +56,12 @@ function App(){
     .addEventListener("click", () =>{
     extendMenuName();
     });
+
+    $("#espresso-menu-list").addEventListener("click", (e) => {
+        if (e.target.classList.contains("menu-edit-button")){
+            
+        
+        };
+    })
 }
 App();
