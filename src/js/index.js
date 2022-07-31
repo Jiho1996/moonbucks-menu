@@ -64,7 +64,9 @@ function App(){
             $innerMenuName.innerText = updatedMenuName;
         };
         if (e.target.classList.contains("menu-remove-button")){
-            confirm(`${$innerMenuName.innerText}를 삭제하시겠습니까 ?`);
+            if (confirm(`${$innerMenuName.innerText}를 삭제하시겠습니까 ?`)){
+                e.target.closest("li").remove();
+            }
 
             
         }
