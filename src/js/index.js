@@ -59,8 +59,8 @@ function App(){
 
     $("#espresso-menu-list").addEventListener("click", (e) => {
         if (e.target.classList.contains("menu-edit-button")){
-           
-            const updatedMenuName = prompt("변경할 이름을 입력해주세요.");
+            const $innerMenuName = e.target.closest("li").querySelector(".menu-name")
+            const updatedMenuName = prompt("변경할 이름을 입력해주세요.", $innerMenuName.innerText);
             
         
         };
