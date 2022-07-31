@@ -58,12 +58,16 @@ function App(){
     });
 
     $("#espresso-menu-list").addEventListener("click", (e) => {
+        const $innerMenuName = e.target.closest("li").querySelector(".menu-name")
         if (e.target.classList.contains("menu-edit-button")){
-            const $innerMenuName = e.target.closest("li").querySelector(".menu-name")
             const updatedMenuName = prompt("변경할 이름을 입력해주세요.", $innerMenuName.innerText);
             $innerMenuName.innerText = updatedMenuName;
-        
         };
+        if (e.target.classList.contains("menu-remove-button")){
+            confirm(`${$innerMenuName.innerText}를 삭제하시겠습니까 ?`);
+
+            
+        }
     })
 }
 App();
