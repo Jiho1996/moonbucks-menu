@@ -23,7 +23,10 @@
 ## 🎯 step2 요구사항 - 상태 관리로 메뉴 관리하기
 
 # TODO localStorage Read & Write
-- [V] localStorage에 데이터를 저장한다. 
+- [] localStorage에 데이터를 저장한다. 
+    - [V] 메뉴를 추가 할 때 데이터 저장
+    - [ ] 메뉴를 수정 할 때 데이터 저장
+    - [ ] 메뉴를 삭제 할 때 데이터 저장
 - [ ] localStorage에 있는 데이터를 읽어온다.
 
 # TODO 카테고리별 메뉴판 관리
