@@ -25,7 +25,7 @@
 # TODO localStorage Read & Write
 - [] localStorage에 데이터를 저장한다. 
     - [V] 메뉴를 추가 할 때 데이터 저장
-    - [ ] 메뉴를 수정 할 때 데이터 저장
+    - [V] 메뉴를 수정 할 때 데이터 저장
     - [ ] 메뉴를 삭제 할 때 데이터 저장
 - [ ] localStorage에 있는 데이터를 읽어온다.
 

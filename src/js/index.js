@@ -14,8 +14,11 @@ function App(){
     this.menu = [];
     
     const updateMenuName = (e) => {
-        const $innerMenuName = e.target.closest("li").querySelector(".menu-name")
+        const menuId = e.target.closest("li").dataset.menuId;
+        const $innerMenuName = e.target.closest("li").querySelector(".menu-name");
         const updatedMenuName = prompt("변경할 이름을 입력해주세요.", $innerMenuName.innerText);
+        this.menu[menuId].name = updatedMenuName;
+        store.setLocalStorage(this.menu);
         $innerMenuName.innerText = updatedMenuName;
     }
     const updateMenuCount = () => {
@@ -37,9 +40,9 @@ function App(){
         this.menu.push( { name : espressoMenuName } );
         store.setLocalStorage(this.menu);
         const template = this.menu
-        .map((item) => {
+        .map((item, index) => {
             return `
-            <li class="menu-list-item d-flex items-center py-2">
+            <li data-menu-id ="${index}"class="menu-list-item d-flex items-center py-2">
             <span class="w-100 pl-2 menu-name">${item.name}</span>
             <button
                 type="button"
