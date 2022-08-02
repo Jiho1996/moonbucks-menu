@@ -68,7 +68,7 @@ function App(){
         const updatedMenuName = prompt("변경할 이름을 입력해주세요.", $innerMenuName.innerText);
         this.menu[this.currentCategory][menuId].name = updatedMenuName;
         store.setLocalStorage(this.menu);
-        $innerMenuName.innerText = updatedMenuName;
+        render();
     }
     const updateMenuCount = () => {
         
@@ -95,9 +95,9 @@ function App(){
     const removeMenu = (e) => {
         const menuId = e.target.closest("li").querySelector(".menu-name")
         if (confirm(`${menuId.innerText}를 삭제하시겠습니까 ?`)){
-            e.target.closest("li").remove();
             this.menu[this.currentCategory].splice(menuId, 1)
             store.setLocalStorage(this.menu[this.currentCategory]);
+            render();
             updateMenuCount();
         }
     }
