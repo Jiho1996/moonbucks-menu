@@ -35,7 +35,7 @@ function App(){
         .map((item, index) => {
             return `
             <li data-menu-id ="${index}"class="menu-list-item d-flex items-center py-2">
-            <span class="w-100 pl-2 menu-name">${item.name}</span>
+            <span class="w-100 pl-2 menu-name ${item.soldOut ? "sold-out" : ""}">${item.name}</span>
             <button
                 type="button"
                 class="bg-gray-50 text-gray-500 text-sm mr-1 menu-sold-out-button"
@@ -101,6 +101,10 @@ function App(){
             updateMenuCount();
         }
     }
+    
+    const soldOutMenu = (e) => {
+
+    }
 
     $("#espresso-menu-form")
     .addEventListener("submit", (e) => {
@@ -124,9 +128,15 @@ function App(){
         
         if (e.target.classList.contains("menu-edit-button")){
             updateMenuName(e);
+            return;
         };
         if (e.target.classList.contains("menu-remove-button")){
             removeMenu(e);
+            return;
+        }
+        if (e.target.classList.contains("menu-sold-out-button")){
+            soldOutMenu(e);
+            return;
         }
     })
 
