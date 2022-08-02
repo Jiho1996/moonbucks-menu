@@ -69,9 +69,11 @@ function App(){
         updateMenuCount();
     };
     const removeMenu = (e) => {
-        const $innerMenuName = e.target.closest("li").querySelector(".menu-name")
-        if (confirm(`${$innerMenuName.innerText}를 삭제하시겠습니까 ?`)){
+        const menuId = e.target.closest("li").querySelector(".menu-name")
+        if (confirm(`${menuId.innerText}를 삭제하시겠습니까 ?`)){
             e.target.closest("li").remove();
+            this.menu.splice(menuId, 1)
+            store.setLocalStorage(this.menu);
             updateMenuCount();
         }
     }
