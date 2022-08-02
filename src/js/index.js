@@ -60,6 +60,8 @@ function App(){
     .join("");
        
         $("#espresso-menu-list").innerHTML = template
+        const menuCount = $("#espresso-menu-list").querySelectorAll("li").length
+        $(".menu-count").innerText = `총 ${menuCount}개`
     }
     
     const updateMenuName = (e) => {
@@ -69,11 +71,6 @@ function App(){
         this.menu[this.currentCategory][menuId].name = updatedMenuName;
         store.setLocalStorage(this.menu);
         render();
-    }
-    const updateMenuCount = () => {
-        
-        const menuCount = $("#espresso-menu-list").querySelectorAll("li").length
-        $(".menu-count").innerText = `총 ${menuCount}개`
     }
     //메뉴 이름 받기.
     const extendMenuName = () => {
@@ -90,7 +87,7 @@ function App(){
         store.setLocalStorage(this.menu);
         render();
         $('#espresso-menu-name').value = "";
-        updateMenuCount();
+        render();
     };
     const removeMenu = (e) => {
         const menuId = e.target.closest("li").querySelector(".menu-name")
@@ -98,7 +95,7 @@ function App(){
             this.menu[this.currentCategory].splice(menuId, 1)
             store.setLocalStorage(this.menu[this.currentCategory]);
             render();
-            updateMenuCount();
+            render();
         }
     }
     
