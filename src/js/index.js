@@ -1,5 +1,6 @@
 const $ = (selector) => document.querySelector(selector);
-
+// 사용자 인터렉션 저장. 동적인 웹페이지 제작가능.
+// 상태값 중요.
 const store = {
     setLocalStorage(menu){
         localStorage.setItem("menu", JSON.stringify(menu));
@@ -11,16 +12,26 @@ const store = {
 
 function App(){
     // Form 태그로 인한 새로고침 막기.
-    this.menu = [];
+    this.menu = {
+        espresso : [],
+        frappuccino : [],
+        blended : [],
+        teavana : [],
+        desert : [],
+    };
+
+    this.currentCategory = "espresso";
+
     this.init = () =>{
-        if (store.getLocalStorage().length > 1){
+        if (store.getLocalStorage()){
             this.menu = store.getLocalStorage();
         }
         render();
+        
     };
 
     const render = () =>{
-        const template = this.menu
+        const template = this.menu[this.currentCategory]
         .map((item, index) => {
             return `
             <li data-menu-id ="${index}"class="menu-list-item d-flex items-center py-2">
@@ -38,8 +49,7 @@ function App(){
                 삭제
             </button>
             </li>
-            `
-            
+            ` 
     })
     .join("");
        
@@ -50,7 +60,7 @@ function App(){
         const menuId = e.target.closest("li").dataset.menuId;
         const $innerMenuName = e.target.closest("li").querySelector(".menu-name");
         const updatedMenuName = prompt("변경할 이름을 입력해주세요.", $innerMenuName.innerText);
-        this.menu[menuId].name = updatedMenuName;
+        this.menu[this.currentCategory][menuId].name = updatedMenuName;
         store.setLocalStorage(this.menu);
         $innerMenuName.innerText = updatedMenuName;
     }
@@ -70,7 +80,7 @@ function App(){
         //     alert("값을 입력해 주세요.");
         //     return;
         // }
-        this.menu.push( { name : espressoMenuName } );
+        this.menu[this.currentCategory].push( { name : espressoMenuName } );
         store.setLocalStorage(this.menu);
         render();
         $('#espresso-menu-name').value = "";
@@ -80,8 +90,8 @@ function App(){
         const menuId = e.target.closest("li").querySelector(".menu-name")
         if (confirm(`${menuId.innerText}를 삭제하시겠습니까 ?`)){
             e.target.closest("li").remove();
-            this.menu.splice(menuId, 1)
-            store.setLocalStorage(this.menu);
+            this.menu[this.currentCategory].splice(menuId, 1)
+            store.setLocalStorage(this.menu[this.currentCategory]);
             updateMenuCount();
         }
     }
@@ -113,6 +123,17 @@ function App(){
             removeMenu(e);
         }
     })
+
+    $("nav").addEventListener("click", (e) => {
+        const isCategoryButton = e.target.classList.contains("cafe-category-name");
+        if (isCategoryButton){
+            this.currentCategory = e.target.dataset.categoryName;
+            $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`
+            render();
+        }
+    });
 }
+
+
 const app = new App();
 app.init()
