@@ -23,6 +23,7 @@ function App(){
     this.currentCategory = "espresso";
 
     this.init = () =>{
+        initEventListener();
         if (store.getLocalStorage()){
             this.menu = store.getLocalStorage();
         }
@@ -106,47 +107,55 @@ function App(){
 
     }
 
-    $("#espresso-menu-form")
-    .addEventListener("submit", (e) => {
-        e.preventDefault();
-    });
+    const initEventListener = () =>{
 
-    $("#espresso-menu-name")
-    .addEventListener("keypress", (e) =>{  
-        if (e.key !== "Enter"){
-            return;
-        }
-        extendMenuName();
-        
-    });
+        $("#espresso-menu-form")
+        .addEventListener("submit", (e) => {
+            e.preventDefault();
+        });
+    
+        $("#espresso-menu-name")
+        .addEventListener("keypress", (e) =>{  
+            if (e.key !== "Enter"){
+                return;
+            }
+            extendMenuName();
+            
+        });
+    
+        $("#espresso-menu-submit-button")
+        .addEventListener("click", extendMenuName)
+    
+        $("#espresso-menu-list")
+        .addEventListener("click", (e) => {
+            
+            if (e.target.classList.contains("menu-edit-button")){
+                updateMenuName(e);
+                return;
+            };
+            if (e.target.classList.contains("menu-remove-button")){
+                removeMenu(e);
+                return;
+            }
+            if (e.target.classList.contains("menu-sold-out-button")){
+                soldOutMenu(e);
+                return;
+            }
+        })
+    
+        $("nav").addEventListener("click", (e) => {
+            const isCategoryButton = e.target.classList.contains("cafe-category-name");
+            if (isCategoryButton){
+                this.currentCategory = e.target.dataset.categoryName;
+                console.log(e.target.innerText)
+                $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`
+                
+                render();
+            }
+        });
 
-    $("#espresso-menu-submit-button")
-    .addEventListener("click", extendMenuName)
+    }
 
-    $("#espresso-menu-list")
-    .addEventListener("click", (e) => {
-        
-        if (e.target.classList.contains("menu-edit-button")){
-            updateMenuName(e);
-            return;
-        };
-        if (e.target.classList.contains("menu-remove-button")){
-            removeMenu(e);
-            return;
-        }
-        if (e.target.classList.contains("menu-sold-out-button")){
-            soldOutMenu(e);
-            return;
-        }
-    })
-
-    $("nav").addEventListener("click", (e) => {
-        const isCategoryButton = e.target.classList.contains("cafe-category-name");
-        if (isCategoryButton){
-            this.currentCategory = e.target.dataset.categoryName;
-            render();
-        }
-    });
 }
 
 
