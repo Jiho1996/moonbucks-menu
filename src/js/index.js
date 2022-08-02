@@ -60,8 +60,7 @@ function App(){
     .join("");
        
         $("#espresso-menu-list").innerHTML = template
-        const menuCount = $("#espresso-menu-list").querySelectorAll("li").length
-        $(".menu-count").innerText = `총 ${menuCount}개`
+        $(".menu-count").innerText = `총 ${this.menu[this.currentCategory].length}개`
     }
     
     const updateMenuName = (e) => {
