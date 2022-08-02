@@ -42,5 +42,5 @@
 
 - [V] 품절 상태의 경우 sold-out class 추가.
 - [V] 품절 버튼을 추가.
-- [ ] 품절 버튼을 클릭하면 localStorage에 상태값이 저장.
-- [ ] 클릭이벤트에서 가장 가까운 li태그의 class속성 값에 sold-out을 추가. 
+- [V] 품절 버튼을 클릭하면 localStorage에 상태값이 저장.
+- [ ] 클릭이벤트에서 해당 class속성 값에 sold-out을 추가. 

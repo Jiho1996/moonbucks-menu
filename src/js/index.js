@@ -103,6 +103,9 @@ function App(){
     }
     
     const soldOutMenu = (e) => {
+        const menuId = e.target.closest("li").dataset.menuId;
+        store.setLocalStorage(this.menu[this.currentCategory]);
+        render();
 
     }
 
