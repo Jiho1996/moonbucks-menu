@@ -1,15 +1,8 @@
 import {$} from "./utils/dom.js"
+import {store} from "./store/store.js"
 // 사용자 인터렉션 저장. 동적인 웹페이지 제작가능.
 // 상태값 중요.
 // 한 파일에는 하나의 객체.
-const store = {
-    setLocalStorage(menu){
-        localStorage.setItem("menu", JSON.stringify(menu));
-    },
-    getLocalStorage(){
-        return JSON.parse(localStorage.getItem("menu"));
-    },
-};
 
 function App(){
     // Form 태그로 인한 새로고침 막기.
