@@ -3,7 +3,9 @@ import {store} from "./store/store.js"
 // 사용자 인터렉션 저장. 동적인 웹페이지 제작가능.
 // 상태값 중요.
 // 한 파일에는 하나의 객체.
-
+const BASE_URL = "http://localhost:3000/api"
+// 주소, 규칙
+// fetch (BASE_URL, option)
 function App(){
     // 한 메뉴 관리 각체에 넣어서 하는 것도 깔끔해 보이고 좋다.
     this.menu = {
@@ -73,16 +75,29 @@ function App(){
             alert("값을 입력해주세요.");
             return;
         }
-        const espressoMenuName = $('#espresso-menu-name').value;
+        const menuName = $('#espresso-menu-name').value;
         // if (coffeeName === ""){
         //     alert("값을 입력해 주세요.");
         //     return;
         // }
-        this.menu[this.currentCategory].push( { name : espressoMenuName } );
-        store.setLocalStorage(this.menu);
-        render();
-        $('#espresso-menu-name').value = "";
-        render();
+        fetch(`${BASE_URL}/category/${this.currentCategory}/menu`, {
+            method: "POST",
+            headers:{
+                "Content-Type" : "application/json",
+            },
+            body : JSON.stringify({name : menuName}),
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+        });
+        // this.menu[this.currentCategory].push( { name : espressoMenuName } );
+        // store.setLocalStorage(this.menu);
+        // render();
+        // $('#espresso-menu-name').value = "";
+        
     };
     const removeMenu = (e) => {
         const menuId = e.target.closest("li").querySelector(".menu-name")
