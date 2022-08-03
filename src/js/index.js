@@ -5,7 +5,7 @@ import {store} from "./store/store.js"
 // 한 파일에는 하나의 객체.
 
 function App(){
-    // Form 태그로 인한 새로고침 막기.
+    // 한 메뉴 관리 각체에 넣어서 하는 것도 깔끔해 보이고 좋다.
     this.menu = {
         espresso : [],
         frappuccino : [],
@@ -15,7 +15,7 @@ function App(){
     };
 
     this.currentCategory = "espresso";
-
+    // 초기화를 따로 분리. 새로고침해도 초기화 되지 않는다. 
     this.init = () =>{
         initEventListener();
         if (store.getLocalStorage()){
@@ -23,8 +23,9 @@ function App(){
         }
         render();
         
+        
     };
-
+    // render역시 따로 분리 => 재사용이 잦기때문.
     const render = () =>{
         const template = this.menu[this.currentCategory]
         .map((item, index) => {
@@ -89,7 +90,6 @@ function App(){
             this.menu[this.currentCategory].splice(menuId, 1)
             store.setLocalStorage(this.menu[this.currentCategory]);
             render();
-            render();
         }
     }
     
@@ -101,6 +101,8 @@ function App(){
 
     }
 
+    
+    // dom조작을 따로 분리.
     const initEventListener = () =>{
 
         $("#espresso-menu-form")
