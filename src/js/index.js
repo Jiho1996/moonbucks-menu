@@ -4,6 +4,16 @@ import {store} from "./store/store.js"
 // 상태값 중요.
 // 한 파일에는 하나의 객체.
 const BASE_URL = "http://localhost:3000/api"
+
+const MenuApi = {
+    async getAllMenuByCategory(category){
+        const response = await fetch(`${BASE_URL}/category/${category}/menu`);
+        return response.json();
+    },
+    async createMenu(name){
+        
+    }
+}
 // 주소, 규칙
 // fetch (BASE_URL, option)
 function App(){
@@ -18,14 +28,12 @@ function App(){
 
     this.currentCategory = "espresso";
     // 초기화를 따로 분리. 새로고침해도 초기화 되지 않는다. 
-    this.init = () =>{
+    this.init = async () =>{
+        this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(
+            this.currentCategory
+        );
         initEventListener();
-        if (store.getLocalStorage()){
-            this.menu = store.getLocalStorage();
-        }
         render();
-        
-        
     };
     // render역시 따로 분리 => 재사용이 잦기때문.
     const render = () =>{
@@ -70,7 +78,7 @@ function App(){
         render();
     }
     //메뉴 이름 받기.
-    const extendMenuName = () => {
+    const extendMenuName = async () => {
         if ($("#espresso-menu-name").value === ""){
             alert("값을 입력해주세요.");
             return;
@@ -80,7 +88,7 @@ function App(){
         //     alert("값을 입력해 주세요.");
         //     return;
         // }
-        fetch(`${BASE_URL}/category/${this.currentCategory}/menu`, {
+        await fetch(`${BASE_URL}/category/${this.currentCategory}/menu`, {
             method: "POST",
             headers:{
                 "Content-Type" : "application/json",
@@ -89,16 +97,15 @@ function App(){
         })
         .then((response) => {
             return response.json();
-        })
-        .then((data) => {
-            console.log(data);
         });
-        // this.menu[this.currentCategory].push( { name : espressoMenuName } );
-        // store.setLocalStorage(this.menu);
-        // render();
-        // $('#espresso-menu-name').value = "";
-        
+
+        this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(
+            this.currentCategory
+        );
+        render();
+        $('#espresso-menu-name').value = "";
     };
+     
     const removeMenu = (e) => {
         const menuId = e.target.closest("li").querySelector(".menu-name")
         if (confirm(`${menuId.innerText}를 삭제하시겠습니까 ?`)){
