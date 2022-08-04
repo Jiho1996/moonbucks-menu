@@ -6,42 +6,63 @@ const makeError = (response) => {
         alert("에러가 발쌩!")
     }
 }
+
+const HTTP_METHOD = {
+    POST(data){
+        return {
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json",
+            },
+            body : JSON.stringify(data),
+        };
+    },
+    PUT(data){
+        return{
+        method : "PUT",
+        headers:{
+            "Content-Type" : "application/json",
+        },
+        body : data ?  JSON.stringify(data) : null,
+    };
+},
+    DELETE(){
+        return {
+            method : "DELETE",
+        };
+    },
+};
+
+const request = async(url, option) => {
+    const response = await fetch(url, option);
+    makeError(response.ok);
+    return response.json();
+    
+}
+
+const requestWithoutJson = async(url, option) => {
+    const response = await fetch(url, option);
+    makeError(response.ok);
+    return response;
+    
+}
+
 export const MenuApi = {
     async getAllMenuByCategory(category){
-        const response = await fetch(`${BASE_URL}/category/${category}/menu`);
-        return response.json();
+        return request(`${BASE_URL}/category/${category}/menu`);
     },
+
     async createMenu(category, name){
-        const response = await fetch(`${BASE_URL}/category/${category}/menu`, {
-            method: "POST",
-            headers:{
-                "Content-Type" : "application/json",
-            },
-            body : JSON.stringify({name}),
-        });
-        makeError(response.ok);
+        return request(`${BASE_URL}/category/${category}/menu`, HTTP_METHOD.POST({name}))
     },
     async UpdateMenu(category, name, menuId){
-        const response = await fetch(`${BASE_URL}/category/${category}/menu/${menuId}`,{
-            method : "PUT",
-            headers:{
-                "Content-Type" : "application/json",
-            },
-            body : JSON.stringify({name}),
-        });
-        makeError(response.ok);
+        return request(`${BASE_URL}/category/${category}/menu/${menuId}`, HTTP_METHOD.PUT({name}))
     },
     async toggleSoldOutMenu(category, menuId){
-        const response = await fetch(`${BASE_URL}/category/${category}/menu/${menuId}/soldout`,{
-            method : "PUT",
-        });
-        makeError(response.ok);
+        return request(`${BASE_URL}/category/${category}/menu/${menuId}/soldOut`, HTTP_METHOD.PUT())
     },
     ///category/:category/menu/:menuId
     async deleteMenu(category, menuId){
-        const response = await fetch (`${BASE_URL}/category/${category}/menu/${menuId}`,{
-            method : "DELETE",
-        });
-        makeError(response.ok);
+        return requestWithoutJson(`${BASE_URL}/category/${category}/menu/${menuId}`, HTTP_METHOD.DELETE())
     }
 }

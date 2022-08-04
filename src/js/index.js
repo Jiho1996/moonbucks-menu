@@ -67,23 +67,20 @@ function App(){
         const menuId = e.target.closest("li").dataset.menuId;
         const $innerMenuName = e.target.closest("li").querySelector(".menu-name");
         const updatedMenuName = prompt("변경할 이름을 입력해주세요.", $innerMenuName.innerText);
+
         await MenuApi.UpdateMenu(this.currentCategory, updatedMenuName, menuId)
         render();
     }
+
     //메뉴 이름 받기.
     const extendMenuName = async () => {
         if ($("#espresso-menu-name").value === ""){
             alert("값을 입력해주세요.");
             return;
         }
-
         const menuName = $('#espresso-menu-name').value;
-        console.log(this.menu);
-        if (this.menu[this.currentCategory].filter(function(ele){ return ele.name === menuName}).length){
-            alert(`${menuName}은 이미 등록된 메뉴입니다.`);
-            $('#espresso-menu-name').value = "";
-            return;
-        }
+        console.log(menuName);
+        
         await MenuApi.createMenu(this.currentCategory, menuName);
         render();
         $('#espresso-menu-name').value = "";
@@ -111,7 +108,9 @@ function App(){
             $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`
             render();
     }
+    
 }
+
 
     
     // dom조작을 따로 분리.
