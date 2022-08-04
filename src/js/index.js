@@ -67,7 +67,9 @@ function App(){
         const menuId = e.target.closest("li").dataset.menuId;
         const $innerMenuName = e.target.closest("li").querySelector(".menu-name");
         const updatedMenuName = prompt("변경할 이름을 입력해주세요.", $innerMenuName.innerText);
-
+        if (checkDuplicated(updatedMenuName)){  
+            return;
+        };
         await MenuApi.UpdateMenu(this.currentCategory, updatedMenuName, menuId)
         render();
     }
@@ -80,7 +82,9 @@ function App(){
         }
         const menuName = $('#espresso-menu-name').value;
         console.log(menuName);
-        
+        if (checkDuplicated(menuName)){
+            return;
+        };
         await MenuApi.createMenu(this.currentCategory, menuName);
         render();
         $('#espresso-menu-name').value = "";
@@ -110,7 +114,14 @@ function App(){
     }
     
 }
-
+    const checkDuplicated = (name) =>{
+        console.log(this.menu[this.currentCategory].filter(function(ele){ return ele.name === name}).length);
+        if (this.menu[this.currentCategory].filter(function(ele){ return ele.name === name}).length){
+            alert(`${name}은 이미 등록된 메뉴입니다.`);
+            $('#espresso-menu-name').value = "";
+            return true;
+        }
+    }
 
     
     // dom조작을 따로 분리.
