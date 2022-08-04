@@ -43,6 +43,14 @@ const MenuApi = {
         }
     },
     ///category/:category/menu/:menuId
+    async deleteMenu(category, menuId){
+        const response = await fetch (`${BASE_URL}/category/${category}/menu/${menuId}`,{
+            method : "DELETE",
+        });
+        if (!response.ok){
+            console.error("에러가 발생.")
+        }
+    }
 }
 // 주소, 규칙
 // fetch (BASE_URL, option)
@@ -133,9 +141,13 @@ function App(){
         const menuId = e.target.closest("li").dataset.menuId;
         console.log(menuId);
         if (confirm(`${menuId.innerText}를 삭제하시겠습니까 ?`)){
+            await MenuApi.deleteMenu(this.currentCategory, menuId);
+            this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(
+                this.currentCategory
+            );
 
-            this.menu[this.currentCategory].splice(menuId, 1)
-            store.setLocalStorage(this.menu[this.currentCategory]);
+            // this.menu[this.currentCategory].splice(menuId, 1)
+            // store.setLocalStorage(this.menu[this.currentCategory]);
             render();
         }
     }
