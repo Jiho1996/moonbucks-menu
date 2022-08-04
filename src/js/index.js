@@ -76,7 +76,14 @@ function App(){
             alert("값을 입력해주세요.");
             return;
         }
+
         const menuName = $('#espresso-menu-name').value;
+        console.log(this.menu);
+        if (this.menu[this.currentCategory].filter(function(ele){ return ele.name === menuName}).length){
+            alert(`${menuName}은 이미 등록된 메뉴입니다.`);
+            $('#espresso-menu-name').value = "";
+            return;
+        }
         await MenuApi.createMenu(this.currentCategory, menuName);
         render();
         $('#espresso-menu-name').value = "";
