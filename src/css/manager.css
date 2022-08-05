@@ -94,7 +94,7 @@ ul li button:hover {
   transition:left 0.3s;
 }
 .toggle-switch input[type=checkbox] + label .toggle-track:after{
-  content:'OFF';
+  content:'';
   display: inline-block;
   position: absolute;
   top: 4px;
@@ -110,6 +110,6 @@ ul li button:hover {
   border:1px solid #FA9AA6;
 }
 .toggle-switch input[type=checkbox]:checked + label .toggle-track:after{
-  content:'ON';
+  content:'';
   left: 12px;
 }
