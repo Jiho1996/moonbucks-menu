@@ -51,3 +51,65 @@ ul li button:hover {
   text-decoration: line-through;
   color: gray;
 }
+
+
+.toggle-switch input{
+  -webkit-appearance:none;
+  -webkit-border-radius:0;
+}
+
+#container{
+  
+  display: flex;
+  width: 90%;
+  margin-top: 20px;
+/*   height: 98vh; */
+  justify-content:right;
+  align-items:center;
+}
+.toggle-switch input[type=checkbox]{
+  display: none;
+}
+
+.toggle-track{
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 35px;
+  border-radius:60px;
+  background: #8b8b8b;
+}
+.toggle-track:before{
+  content:'';
+  display: block;
+  position: absolute;
+  top: -4px;
+  left: -6px;
+  width: 32px;
+  height: 32px; 
+  margin: 5px;
+  background: #fff;
+  border-radius:100%;
+  border:1px solid #8b8b8b;
+  transition:left 0.3s;
+}
+.toggle-switch input[type=checkbox] + label .toggle-track:after{
+  content:'OFF';
+  display: inline-block;
+  position: absolute;
+  top: 4px;
+  right: 14px;
+  color: #fff;
+}
+
+.toggle-switch input[type=checkbox]:checked + label .toggle-track{
+  background: #FA9AA6;
+}
+.toggle-switch input[type=checkbox]:checked + label .toggle-track:before{
+  left: 40px;
+  border:1px solid #FA9AA6;
+}
+.toggle-switch input[type=checkbox]:checked + label .toggle-track:after{
+  content:'ON';
+  left: 12px;
+}
