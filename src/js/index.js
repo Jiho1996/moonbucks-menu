@@ -1,11 +1,10 @@
 import {$} from "./utils/dom.js"
-import {store} from "./store/store.js"
 import {MenuApi} from "./api/index.js"
 // 사용자 인터렉션 저장. 동적인 웹페이지 제작가능.
 // 상태값 중요.
 // 한 파일에는 하나의 객체.
 // 주소, 규칙
-// fetch (BASE_URL, option)
+
 function App(){
     // 한 메뉴 관리 각체에 넣어서 하는 것도 깔끔해 보이고 좋다.
     this.menu = {
