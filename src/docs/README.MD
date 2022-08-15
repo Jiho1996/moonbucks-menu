@@ -71,4 +71,10 @@
 링크 : https://github.com/Jiho1996/Gbucks-customer
 
 
+## 🎯 step 5 요구사항 - 컴포넌트 분리하기
+  - [ ] navigation-bar 컴포넌트 분리 
+
+
+
+
 
