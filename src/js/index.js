@@ -1,5 +1,6 @@
 import {$} from "./utils/dom.js"
 import {MenuApi} from "./api/index.js"
+import MenuNavBar from "./View/MenuNavBar.js";
 // 사용자 인터렉션 저장. 동적인 웹페이지 제작가능.
 // 상태값 중요.
 // 한 파일에는 하나의 객체.
@@ -15,6 +16,9 @@ function App(){
         desert : [],
     };
 
+    const $menuNavBar = $('.flex-wrap')
+    new MenuNavBar($menuNavBar, this.menu);
+
     this.currentCategory = "espresso";
     // 초기화를 따로 분리. 새로고침해도 초기화 되지 않는다. 
     this.init = async () =>{
@@ -26,10 +30,11 @@ function App(){
     };
     // render역시 따로 분리 => 재사용이 잦기때문.
     const render = async () =>{
+
         this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(
             this.currentCategory
         );
-
+        
         const template = this.menu[this.currentCategory]
         .map((item) => {
             return `
