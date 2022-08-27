@@ -33,7 +33,7 @@ export default class Model {
        // }
 
     }
-    getMenuList(category, allMenu){
+    getMenuList = (category, allMenu) => {
         return allMenu[category]
         
         // if (category === "espresso" || category === "") {
@@ -59,7 +59,7 @@ export default class Model {
 
     bindEvents(){
         
-        const updateMenuName = (menuId, menu, category) => {
+        const updateMenuName = (category, menu, menuId) => {
 
             const updatedMenuName = prompt("변경할 이름을 입력해주세요.");
 

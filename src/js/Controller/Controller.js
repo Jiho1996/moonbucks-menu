@@ -16,7 +16,7 @@ export default class Controller{
             teavana : [],
             desert : [],
         };
-        
+        new MenuNavBar($('.flex-wrap'), this.menu); 
         this.currentCategory = "espresso";
         this.initEventListener();
         this.render();
@@ -33,8 +33,6 @@ export default class Controller{
         await this.setState();
         const $MenuListNode = $("#espresso-menu-list")
         new MenuList($MenuListNode, this.menu, this.currentCategory)
-        const $menuNavBar = $('.flex-wrap')
-        new MenuNavBar($menuNavBar, this.menu); 
     }
 
     initEventListener = () =>{
@@ -61,7 +59,7 @@ export default class Controller{
         
             if (e.target.classList.contains("menu-edit-button")){
                 
-                this.model.bindEvents().updateMenuName(menuId, this.menu, this.currentCategory);
+                this.model.bindEvents().updateMenuName(this.currentCategory, this.menu, menuId);
                 
                 this.render();
 
