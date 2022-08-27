@@ -1,14 +1,16 @@
 export default class View {
-    constructor($target, $props){
-        this.$target = $target
+    constructor($targetNode, $props, $category){
+        this.$targetNode = $targetNode
         this.$props = $props
+        this.$category = $category
+        
         this.render();
     }
 
     template (){return '';}
 
     render(){
-        this.$target.innerHTML = this.template();
+        this.$targetNode.innerHTML = this.template();
         this.mount();
     }
 
