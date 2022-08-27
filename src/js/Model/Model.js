@@ -1,5 +1,6 @@
 import { MenuApi } from "../api/index.js";
 import MenuNavBar from "../View/MenuNavBar.js";
+import { $ } from "../utils/dom.js";
 
 export default class Model {
 
@@ -33,7 +34,7 @@ export default class Model {
 
     }
     getMenuList(category, allMenu){
-        return allMenu[category] ? allMenu["espresso"] : allMenu[category]
+        return allMenu[category]
         
         // if (category === "espresso" || category === "") {
         //     return menuCategory["_espresso"];
@@ -54,5 +55,36 @@ export default class Model {
         //     if (category === "teavana") {
         //     return menuCategory["_teavana"];
         //     }
+    }
+
+    bindEvents(){
+        
+        const updateMenuName = (menuId, menu, category) => {
+
+            const updatedMenuName = prompt("변경할 이름을 입력해주세요.");
+
+            const checkDuplicated = () =>{
+        
+                if (menu[category].filter(function(ele){ return ele.name === updatedMenuName}).length){
+                    alert(`${updatedMenuName}은 이미 등록된 메뉴입니다.`);
+                    $('#espresso-menu-name').value = "";
+                    return true;
+                }
+            }
+
+            if (checkDuplicated()){  
+                return;
+            };
+            
+            MenuApi.UpdateMenu(category, updatedMenuName, menuId)
+        }
+
+        // return {
+        //     updateMenuName : updateMenuName
+        // }
+        return {
+            updateMenuName : updateMenuName
+        }
+    
     }
 }
