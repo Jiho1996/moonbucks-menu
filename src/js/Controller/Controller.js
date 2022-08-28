@@ -42,21 +42,17 @@ export default class Controller{
             e.preventDefault();
         });
 
-        const updateMenuName = async (menuId) => {
-            this.model.bindEvents().updateMenuName({
-            category : this.currentCategory, 
-            menu : this.menu, 
-            menuId : menuId
-        });
-            this.render();
-        }
-
-        const removeMenu = async ({event, menuId}) => {
-            if (confirm(`${event.target.closest("li").querySelector(".menu-name").innerText}를 삭제하시겠습니까 ?`)){
-                await MenuApi.deleteMenu(this.currentCategory, menuId);
-                this.render();
+        $("#espresso-menu-name")
+        .addEventListener("keypress", async (e) =>{  
+            if (e.key !== "Enter"){
+                return;
             }
-        };
+            await this.model.bindEvents().extendMenuName(
+                {category : this.currentCategory,
+                 allMenu : this.menu});
+            
+            this.render();
+        });
 
         const soldOutMenu = async (menuId) => {
             await MenuApi.toggleSoldOutMenu(this.currentCategory, menuId);
@@ -65,20 +61,26 @@ export default class Controller{
         };
     
         $("#espresso-menu-list")
-        .addEventListener("click", (e) => {
+        .addEventListener("click", async (e) => {
 
             const menuId = e.target.closest("li").dataset.menuId;
         
             if (e.target.classList.contains("menu-edit-button")){
-                updateMenuName(menuId);
+                await this.model.bindEvents().updateMenuName({
+                    category : this.currentCategory, 
+                    allMenu : this.menu, 
+                    menuId : menuId
+                });
+                this.render();
                 return;
             };
             if (e.target.classList.contains("menu-remove-button")){
-                removeMenu({event : e, menuId : menuId});
+                await this.model.bindEvents().removeMenu({event : e, menuId : menuId, category : this.currentCategory});
+                this.render();
                 return;
             }
             if (e.target.classList.contains("menu-sold-out-button")){
-                soldOutMenu(menuId);
+                await soldOutMenu(menuId);
                 return;
             }
         })
