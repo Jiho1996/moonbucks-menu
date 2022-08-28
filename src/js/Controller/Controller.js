@@ -41,6 +41,8 @@ export default class Controller{
         .addEventListener("submit", (e) => {
             e.preventDefault();
         });
+
+ 
     
         // $("#espresso-menu-name")
         // .addEventListener("keypress", (e) =>{  
@@ -50,34 +52,59 @@ export default class Controller{
         //     extendMenuName();
             
         // });
+
+        const updateMenuName = async (menuId) => {
+            this.model.bindEvents().updateMenuName({
+            category : this.currentCategory, 
+            menu : this.menu, 
+            menuId : menuId
+        });
+        
+        this.render();
+        }
+
+        const removeMenu = async ({event, menuId}) => {
+            if (confirm(`${event.target.closest("li").querySelector(".menu-name").innerText}를 삭제하시겠습니까 ?`)){
+                await MenuApi.deleteMenu(this.currentCategory, menuId);
+                this.render();
+            }
+        };
     
-        // $("#espresso-menu-submit-button")
-        // .addEventListener("click", extendMenuName)
         $("#espresso-menu-list")
         .addEventListener("click", (e) => {
+
             const menuId = e.target.closest("li").dataset.menuId;
         
             if (e.target.classList.contains("menu-edit-button")){
-                
-                this.model.bindEvents().updateMenuName(this.currentCategory, this.menu, menuId);
-                
-                this.render();
-
+                updateMenuName(menuId);
                 return;
             };
-            // if (e.target.classList.contains("menu-remove-button")){
-            //     removeMenu(e);
-            //     return;
-            // }
+            if (e.target.classList.contains("menu-remove-button")){
+                removeMenu({event : e, menuId : menuId});
+                return;
+            }
             // if (e.target.classList.contains("menu-sold-out-button")){
             //     soldOutMenu(e);
             //     return;
             // }
         })
-    
-       // $("nav").addEventListener("click", changeCategory);
+
+        const changeCategory = async (e) =>{
+            const isCategoryButton = e.target.classList.contains("cafe-category-name");
+            if (isCategoryButton){
+                this.currentCategory = e.target.dataset.categoryName;
+                $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`
+                this.render();
+        }
+        
+    }
+
+        $("nav").addEventListener("click", changeCategory);
+
 
     }
+
+
 
     // setEvent = () => {
     //     (async (e) => {
