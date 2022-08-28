@@ -80,7 +80,8 @@ export default class Controller{
                 return;
             }
             if (e.target.classList.contains("menu-sold-out-button")){
-                await soldOutMenu(menuId);
+                await this.model.bindEvents().soldOutMenu({category : this.currentCategory, menuId : menuId});
+                this.render();
                 return;
             }
         })
