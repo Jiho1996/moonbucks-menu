@@ -53,12 +53,6 @@ export default class Controller{
             
             this.render();
         });
-
-        const soldOutMenu = async (menuId) => {
-            await MenuApi.toggleSoldOutMenu(this.currentCategory, menuId);
-            this.render();
-    
-        };
     
         $("#espresso-menu-list")
         .addEventListener("click", async (e) => {
@@ -86,17 +80,10 @@ export default class Controller{
             }
         })
 
-        const changeCategory = async (e) =>{
-            const isCategoryButton = e.target.classList.contains("cafe-category-name");
-            if (isCategoryButton){
-                this.currentCategory = e.target.dataset.categoryName;
-                $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`
-                this.render();
-        }
-        
-    }
-
-        $("nav").addEventListener("click", changeCategory);
+        $("nav").addEventListener("click", async (e) =>{
+        this.currentCategory = await this.model.bindEvents().changeCategory(e)
+        this.render();
+    });
 
 
     }

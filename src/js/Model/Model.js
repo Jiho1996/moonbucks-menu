@@ -106,6 +106,22 @@ export default class Model {
                 await MenuApi.deleteMenu(category, menuId);
             }
         };
+
+        const soldOutMenu = async ({category, menuId}) => {
+            await MenuApi.toggleSoldOutMenu(category, menuId);
+        };
+
+        const changeCategory = async (e, category) =>{
+            const isCategoryButton = e.target.classList.contains("cafe-category-name");
+            let changedCategory = "";
+            if (isCategoryButton){
+                changedCategory = e.target.dataset.categoryName;
+                $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`
+        }
+
+        return changedCategory === category ? category : changedCategory
+        
+    }
         // return {
         //     updateMenuName : updateMenuName
         // }
@@ -113,6 +129,8 @@ export default class Model {
             updateMenuName : updateMenuName,
             removeMenu : removeMenu,
             extendMenuName : extendMenuName,
+            soldOutMenu : soldOutMenu,
+            changeCategory : changeCategory
         }
     
     }
