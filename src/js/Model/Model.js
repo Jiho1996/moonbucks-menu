@@ -59,7 +59,7 @@ export default class Model {
 
     bindEvents(){
         
-        const updateMenuName = (category, menu, menuId) => {
+        const updateMenuName = ({category, menu, menuId}) => {
 
             const updatedMenuName = prompt("변경할 이름을 입력해주세요.");
 
