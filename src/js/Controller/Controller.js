@@ -42,25 +42,13 @@ export default class Controller{
             e.preventDefault();
         });
 
- 
-    
-        // $("#espresso-menu-name")
-        // .addEventListener("keypress", (e) =>{  
-        //     if (e.key !== "Enter"){
-        //         return;
-        //     }
-        //     extendMenuName();
-            
-        // });
-
         const updateMenuName = async (menuId) => {
             this.model.bindEvents().updateMenuName({
             category : this.currentCategory, 
             menu : this.menu, 
             menuId : menuId
         });
-        
-        this.render();
+            this.render();
         }
 
         const removeMenu = async ({event, menuId}) => {
@@ -68,6 +56,12 @@ export default class Controller{
                 await MenuApi.deleteMenu(this.currentCategory, menuId);
                 this.render();
             }
+        };
+
+        const soldOutMenu = async (menuId) => {
+            await MenuApi.toggleSoldOutMenu(this.currentCategory, menuId);
+            this.render();
+    
         };
     
         $("#espresso-menu-list")
@@ -83,10 +77,10 @@ export default class Controller{
                 removeMenu({event : e, menuId : menuId});
                 return;
             }
-            // if (e.target.classList.contains("menu-sold-out-button")){
-            //     soldOutMenu(e);
-            //     return;
-            // }
+            if (e.target.classList.contains("menu-sold-out-button")){
+                soldOutMenu(menuId);
+                return;
+            }
         })
 
         const changeCategory = async (e) =>{
