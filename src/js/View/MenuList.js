@@ -2,12 +2,6 @@ import View from "./Core/View.js";
 
 export default class MenuList extends View{
 
-    // constructor ($Node, $props, $category){
-    //     this.$Node = $Node
-    //     this.$props = $props
-    //     this.$category = $category
-    //     this.template();
-    // }
     template (){
         return this.$props[this.$category]
         .map((item) => {
