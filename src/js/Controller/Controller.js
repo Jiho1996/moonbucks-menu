@@ -31,8 +31,15 @@ export default class Controller{
 
     render = async () => {
         await this.setState();
-        const $MenuListNode = $("#espresso-menu-list")
-        new MenuList($MenuListNode, this.menu, this.currentCategory)
+        const $MenuListNode = $("#espresso-menu-list");
+        new MenuList($MenuListNode, this.menu, this.currentCategory);
+        
+        this.model.bindEvents().makeSoldOut({
+            domNode : $(".menu-count"),
+            menu : this.menu,
+            category : this.currentCategory
+            })
+        
     }
 
     initEventListener = () =>{

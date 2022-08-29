@@ -78,8 +78,6 @@ export default class Model {
         const checkDuplicated = ({
             category, allMenu, updatedMenuName
         }) =>{
-
-            console.log(allMenu, category, updatedMenuName)
         
             if (allMenu[category].filter(function(ele){ return ele.name === updatedMenuName}).length){
                 alert(`${updatedMenuName}은 이미 등록된 메뉴입니다.`);
@@ -89,8 +87,6 @@ export default class Model {
         }
         
         const updateMenuName = async ({category, allMenu, menuId}) => {
-
-            console.log(category, allMenu, menuId)
 
             const updatedMenuName = prompt("변경할 이름을 입력해주세요.");
 
@@ -122,6 +118,13 @@ export default class Model {
         return changedCategory === category ? category : changedCategory
         
     }
+
+        const makeSoldOut = ({domNode, menu, category}) => {
+
+            domNode.innerText = `총 ${menu[category].length}개`
+
+        }
+        
         // return {
         //     updateMenuName : updateMenuName
         // }
@@ -130,7 +133,8 @@ export default class Model {
             removeMenu : removeMenu,
             extendMenuName : extendMenuName,
             soldOutMenu : soldOutMenu,
-            changeCategory : changeCategory
+            changeCategory : changeCategory,
+            makeSoldOut : makeSoldOut,
         }
     
     }
