@@ -2,8 +2,6 @@ import { $ } from "../utils/dom.js";
 import MenuNavBar from "../View/MenuNavBar.js";
 import Model from "../Model/Model.js";
 import MenuList from "../View/MenuList.js";
-import { MenuApi } from "../api/index.js";
-
 
 export default class Controller{
     constructor(){
@@ -33,7 +31,7 @@ export default class Controller{
         await this.setState();
         const $MenuListNode = $("#espresso-menu-list");
         new MenuList($MenuListNode, this.menu, this.currentCategory);
-        
+
         this.model.bindEvents().makeSoldOut({
             domNode : $(".menu-count"),
             menu : this.menu,
@@ -94,23 +92,5 @@ export default class Controller{
 
 
     }
-
-
-
-    // setEvent = () => {
-    //     (async (e) => {
-    //         const menuId = e.target.closest("li").dataset.menuId;
-    //         const $innerMenuName = e.target.closest("li").querySelector(".menu-name");
-    //         console.log(this.model)
-    // })();
-
-    // this.init = async () =>{
-    //     this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(
-    //         this.currentCategory
-    //     );
-    //     initEventListener();
-    //     render();
-    // };
-    
 }
 
