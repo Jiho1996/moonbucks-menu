@@ -1,5 +1,4 @@
 import { MenuApi } from "../api/index.js";
-import MenuNavBar from "../View/MenuNavBar.js";
 import { $ } from "../utils/dom.js";
 
 export default class Model {
@@ -84,14 +83,14 @@ export default class Model {
             domNode.innerText = `총 ${menu[category].length}개`
 
         }
-        
+
         return {
-            updateMenuName : updateMenuName,
-            removeMenu : removeMenu,
-            extendMenuName : extendMenuName,
-            soldOutMenu : soldOutMenu,
-            changeCategory : changeCategory,
-            makeSoldOut : makeSoldOut,
+            updateMenuName,
+            removeMenu,
+            extendMenuName,
+            soldOutMenu,
+            changeCategory,
+            makeSoldOut,
         }
     
     }
